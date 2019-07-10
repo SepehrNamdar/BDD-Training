@@ -7,26 +7,14 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
 public class ScheduleInterviewShould {
-    @Given("Julia who is a Java developer")
-    public void julia_who_is_a_java_developer() {
+    @Given("Julia who is a Java developer and is available today")
+    public void julia_who_is_a_java_developer_and_is_available_today() {
         // Write code here that turns the phrase above into concrete actions
         throw new PendingException();
     }
 
-    @And("^Julia is available today$")
-    public void juliaIsAvailableToday() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
-    }
-
-    @And("^David who is a Java recruiter$")
-    public void davidWhoIsAJavaRecruiter() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
-    }
-
-    @And("^David is available today$")
-    public void davidIsAvailableToday(){
+    @And("^David who is a Java recruiter and is available today$")
+    public void davidWhoIsAJavaRecruiterAndIsAvailableToday() {
         // Write code here that turns the phrase above into concrete actions
         throw new PendingException();
     }
