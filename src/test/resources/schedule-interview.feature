@@ -7,8 +7,8 @@ Feature: Schedule an interview
 
   Scenario: Schedule an interview successfully
     Given Julia who is a Java developer
-    And is available today
+    And Julia is available today
     And David who is a Java recruiter
-    And is available today
+    And David is available today
     When I try to schedule an interview for Julia today
     Then an interview is scheduled for Julia and Thomas today to meet each other
