@@ -13,29 +13,29 @@ import static org.junit.Assert.assertEquals;
 public class ScheduleInterviewShould {
     private final LocalDateTime TODAY = LocalDateTime.now();
 
-    private Candidate julia;
-    private Recruiter david;
+    private Candidate candidate;
+    private Recruiter recruiter;
     private ScheduleInterview scheduler;
 
     @Given("Julia who is a Java developer and is available today")
     public void julia_who_is_a_java_developer_and_is_available_today() {
-        julia = new Candidate("Julia", "Java", TODAY);
+        candidate = new Candidate("Julia", "Java", TODAY);
     }
 
     @And("^David who is a Java recruiter and is available today$")
     public void davidWhoIsAJavaRecruiterAndIsAvailableToday() {
-        david = new Recruiter("David", "Java", TODAY);
+        recruiter = new Recruiter("David", "Java", TODAY);
     }
 
-    @When("^I try to schedule an interview for Julia today$")
+    @When("^I try to schedule an interview for Julia nd David")
     public void iTryToScheduleAnInterviewForJulia() {
-        scheduler = new ScheduleInterview(julia, david);
+        scheduler = new ScheduleInterview(candidate, recruiter);
         scheduler.planInterview();
     }
 
-    @Then("^an interview is scheduled for Julia and Thomas today to meet each other$")
+    @Then("^an interview is scheduled for Julia and David today to meet each other$")
     public void anInterviewIsScheduledForJuliaAndThomasTodayToMeetEachOther() {
-        Interview interviewTodayBetweenJuliaAndDavid = new Interview(TODAY, julia.getName(), david.getName());
+        Interview interviewTodayBetweenJuliaAndDavid = new Interview(TODAY, candidate.getName(), recruiter.getName());
         assertEquals(interviewTodayBetweenJuliaAndDavid, scheduler.getInterview());
     }
 }

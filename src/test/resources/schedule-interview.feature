@@ -8,5 +8,5 @@ Feature: Schedule an interview
   Scenario: Schedule an interview successfully
     Given Julia who is a Java developer and is available today
     And David who is a Java recruiter and is available today
-    When I try to schedule an interview for Julia today
-    Then an interview is scheduled for Julia and Thomas today to meet each other
+    When I try to schedule an interview for Julia and David
+    Then an interview is scheduled for Julia and David today to meet each other
