@@ -13,4 +13,9 @@ Feature: Schedule an interview
     Examples:
       | candidateName | candidateSkill | candidateAvailability | recruiter | recruiterSkill | recruiterAvailability | interviewDate |
       | Julia         | Java           | 2018-01-01            | David     | Java           | 2018-01-01            | 2018-01-01    |
-      | Marc          | Java           | 2019-07-14            | Thomas    | Java           | 2019-07-14            | 2019-07-14    |
+      | Marc          | .Net           | 2019-07-14            | Thomas    | .Net           | 2019-07-14            | 2019-07-14    |
+
+  Scenario: Schedule an interview is not possible if candidate and recruiter skill does not match
+    Given Marta who is a PHP developer and is available 2019-07-15
+    And Sam who is a Ruby recruiter and is available 2019-07-15
+    Then The system inform me that there is any recruiter who can test the candidate
