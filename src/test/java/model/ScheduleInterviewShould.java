@@ -1,5 +1,6 @@
 package model;
 
+import cucumber.api.Format;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -7,35 +8,43 @@ import cucumber.api.java.en.When;
 import use_case.ScheduleInterview;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 import static org.junit.Assert.assertEquals;
 
 public class ScheduleInterviewShould {
-    private final LocalDateTime TODAY = LocalDateTime.now();
 
-    private Candidate julia;
-    private Recruiter david;
+    private Candidate candidate;
+    private Recruiter recruiter;
     private ScheduleInterview scheduler;
 
-    @Given("Julia who is a Java developer and is available today")
-    public void julia_who_is_a_java_developer_and_is_available_today() {
-        julia = new Candidate("Julia", "Java", TODAY);
+    @Given("(.*) who is a (.*) developer and is available (.*)")
+    public void julia_who_is_a_java_developer_and_is_available_today(
+            String candidateName, String candidateSkill, @Format("yyyy-MM-dd") Date candidateAvailability) {
+        candidate = new Candidate(candidateName, candidateSkill, convert(candidateAvailability));
     }
 
-    @And("^David who is a Java recruiter and is available today$")
-    public void davidWhoIsAJavaRecruiterAndIsAvailableToday() {
-        david = new Recruiter("David", "Java", TODAY);
+    @And("^(.*) who is a (.*) recruiter and is available (.*)")
+    public void davidWhoIsAJavaRecruiterAndIsAvailableToday(
+            String recruiterName, String recruiterSkill, @Format("yyyy-MM-dd") Date recruiterAvailability) {
+        recruiter = new Recruiter(recruiterName, recruiterSkill, convert(recruiterAvailability));
     }
 
-    @When("^I try to schedule an interview for Julia today$")
-    public void iTryToScheduleAnInterviewForJulia() {
-        scheduler = new ScheduleInterview(julia, david);
+    @When("^I try to schedule an interview")
+    public void iTryToScheduleAnInterview() {
+        scheduler = new ScheduleInterview(candidate, recruiter);
         scheduler.planInterview();
     }
 
-    @Then("^an interview is scheduled for Julia and Thomas today to meet each other$")
-    public void anInterviewIsScheduledForJuliaAndThomasTodayToMeetEachOther() {
-        Interview interviewTodayBetweenJuliaAndDavid = new Interview(TODAY, julia.getName(), david.getName());
+    @Then("^an interview is scheduled between a candidate and a recruiter to meet each other at (.*)$")
+    public void anInterviewIsScheduledBetweenACandidateAndARecruiterToMeetEachOther(
+            @Format("yyyy-MM-dd") Date interviewDate) {
+        Interview interviewTodayBetweenJuliaAndDavid =
+                new Interview(convert(interviewDate), candidate.getName(), recruiter.getName());
         assertEquals(interviewTodayBetweenJuliaAndDavid, scheduler.getInterview());
+    }
+
+    private LocalDateTime convert(Date dateToConvert) {
+        return new java.sql.Timestamp(dateToConvert.getTime()).toLocalDateTime();
     }
 }
