@@ -6,7 +6,7 @@ Feature: Schedule an interview
   so she can meet a recruiter who can test her and is available at the same time than her
 
   Scenario: Schedule an interview successfully
-    Given Julia who is a Java developer and is available today
-    And David who is a Java recruiter and is available today
-    When I try to schedule an interview for Julia and David
-    Then an interview is scheduled for Julia and David today to meet each other
+    Given Julia who is a Java developer and is available 2018-01-01
+    And David who is a Java recruiter and is available 2018-01-01
+    When I try to schedule an interview
+    Then an interview is scheduled between a candidate and a recruiter to meet each other at 2018-01-01
