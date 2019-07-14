@@ -10,6 +10,7 @@ import use_case.ScheduleInterview;
 import java.time.LocalDateTime;
 import java.util.Date;
 
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.junit.Assert.assertEquals;
 
 public class ScheduleInterviewShould {
@@ -46,5 +47,12 @@ public class ScheduleInterviewShould {
 
     private LocalDateTime convert(Date dateToConvert) {
         return new java.sql.Timestamp(dateToConvert.getTime()).toLocalDateTime();
+    }
+
+    @Then("^The system inform me that there is any recruiter who can test the candidate$")
+    public void theSystemInformMeThatThereIsAnyRecruiterWhoCanTestTheCandidate() {
+        scheduler = new ScheduleInterview(candidate, recruiter);
+        assertThatExceptionOfType(AnyRecruiterCanTestTheCandidateexception.class)
+                .isThrownBy(scheduler::planInterview);
     }
 }
