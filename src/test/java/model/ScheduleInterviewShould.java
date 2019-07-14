@@ -27,14 +27,14 @@ public class ScheduleInterviewShould {
         recruiter = new Recruiter("David", "Java", TODAY);
     }
 
-    @When("^I try to schedule an interview for Julia nd David")
-    public void iTryToScheduleAnInterviewForJulia() {
+    @When("^I try to schedule an interview for Julia and David")
+    public void iTryToScheduleAnInterviewForJuliaAndDavid() {
         scheduler = new ScheduleInterview(candidate, recruiter);
         scheduler.planInterview();
     }
 
     @Then("^an interview is scheduled for Julia and David today to meet each other$")
-    public void anInterviewIsScheduledForJuliaAndThomasTodayToMeetEachOther() {
+    public void anInterviewIsScheduledForJuliaAndDavidTodayToMeetEachOther() {
         Interview interviewTodayBetweenJuliaAndDavid = new Interview(TODAY, candidate.getName(), recruiter.getName());
         assertEquals(interviewTodayBetweenJuliaAndDavid, scheduler.getInterview());
     }
