@@ -19,13 +19,13 @@ public class ScheduleInterviewShould {
     private Recruiter recruiter;
     private ScheduleInterview scheduler;
 
-    @Given("(.*) who is a (.*) developer and is available (.*)")
+    @Given("(.*) who is a (.*) developer and is available at (.*)")
     public void julia_who_is_a_java_developer_and_is_available_today(
             String candidateName, String candidateSkill, @Format("yyyy-MM-dd") Date candidateAvailability) {
         candidate = new Candidate(candidateName, candidateSkill, convert(candidateAvailability));
     }
 
-    @And("^(.*) who is a (.*) recruiter and is available (.*)")
+    @And("^(.*) who is a (.*) recruiter and is available at (.*)")
     public void davidWhoIsAJavaRecruiterAndIsAvailableToday(
             String recruiterName, String recruiterSkill, @Format("yyyy-MM-dd") Date recruiterAvailability) {
         recruiter = new Recruiter(recruiterName, recruiterSkill, convert(recruiterAvailability));
@@ -52,7 +52,7 @@ public class ScheduleInterviewShould {
     @Then("^The system inform me that there is any recruiter who can test the candidate$")
     public void theSystemInformMeThatThereIsAnyRecruiterWhoCanTestTheCandidate() {
         scheduler = new ScheduleInterview(candidate, recruiter);
-        assertThatExceptionOfType(AnyRecruiterCanTestTheCandidateexception.class)
+        assertThatExceptionOfType(AnyRecruiterCanTestTheCandidateException.class)
                 .isThrownBy(scheduler::planInterview);
     }
 }

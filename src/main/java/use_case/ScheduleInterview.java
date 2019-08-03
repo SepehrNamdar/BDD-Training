@@ -1,6 +1,6 @@
 package use_case;
 
-import model.AnyRecruiterCanTestTheCandidateexception;
+import model.AnyRecruiterCanTestTheCandidateException;
 import model.Candidate;
 import model.Interview;
 import model.Recruiter;
@@ -24,7 +24,7 @@ public class ScheduleInterview {
     public void planInterview() {
         LocalDateTime interviewDate = candidate.getAvailability();
         if(!recruiter.canTest(candidate)) {
-            throw new AnyRecruiterCanTestTheCandidateexception();
+            throw new AnyRecruiterCanTestTheCandidateException();
         }
         if (recruiter.isAvailable(interviewDate)) {
             interview = new Interview(interviewDate, candidate.getName(), recruiter.getName());
