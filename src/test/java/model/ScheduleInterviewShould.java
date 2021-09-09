@@ -21,13 +21,17 @@ public class ScheduleInterviewShould {
 
     @Given("(.*) who is a (.*) developer and is available at (.*)")
     public void julia_who_is_a_java_developer_and_is_available_today(
-            String candidateName, String candidateSkill, @Format("yyyy-MM-dd") Date candidateAvailability) {
+            String candidateName,
+            String candidateSkill,
+            @Format("yyyy-MM-dd") Date candidateAvailability) {
         candidate = new Candidate(candidateName, candidateSkill, convert(candidateAvailability));
     }
 
     @And("^(.*) who is a (.*) recruiter and is available at (.*)")
     public void davidWhoIsAJavaRecruiterAndIsAvailableToday(
-            String recruiterName, String recruiterSkill, @Format("yyyy-MM-dd") Date recruiterAvailability) {
+            String recruiterName,
+            String recruiterSkill,
+            @Format("yyyy-MM-dd") Date recruiterAvailability) {
         recruiter = new Recruiter(recruiterName, recruiterSkill, convert(recruiterAvailability));
     }
 
@@ -40,19 +44,20 @@ public class ScheduleInterviewShould {
     @Then("^an interview is scheduled between a candidate and a recruiter to meet each other at (.*)$")
     public void anInterviewIsScheduledBetweenACandidateAndARecruiterToMeetEachOther(
             @Format("yyyy-MM-dd") Date interviewDate) {
-        Interview interviewTodayBetweenJuliaAndDavid =
-                new Interview(convert(interviewDate), candidate.getName(), recruiter.getName());
-        assertEquals(interviewTodayBetweenJuliaAndDavid, scheduler.getInterview());
-    }
+        var interview = new Interview(convert(interviewDate), candidate.getName(), recruiter.getName());
 
-    private LocalDateTime convert(Date dateToConvert) {
-        return new java.sql.Timestamp(dateToConvert.getTime()).toLocalDateTime();
+        assertEquals(interview, scheduler.getInterview());
     }
 
     @Then("^The system inform me that there is any recruiter who can test the candidate$")
     public void theSystemInformMeThatThereIsAnyRecruiterWhoCanTestTheCandidate() {
         scheduler = new ScheduleInterview(candidate, recruiter);
+
         assertThatExceptionOfType(AnyRecruiterCanTestTheCandidateException.class)
                 .isThrownBy(scheduler::planInterview);
+    }
+
+    private LocalDateTime convert(Date dateToConvert) {
+        return new java.sql.Timestamp(dateToConvert.getTime()).toLocalDateTime();
     }
 }

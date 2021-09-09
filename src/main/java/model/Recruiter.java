@@ -3,9 +3,9 @@ package model;
 import java.time.LocalDateTime;
 
 public class Recruiter {
-    private String name;
-    private String recruiterSkill;
-    private LocalDateTime recruiterAvailability;
+    private final String name;
+    private final String recruiterSkill;
+    private final LocalDateTime recruiterAvailability;
 
     Recruiter(String name, String recruiterSkill, LocalDateTime recruiterAvailability) {
         this.name = name;

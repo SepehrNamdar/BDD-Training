@@ -8,8 +8,8 @@ import model.Recruiter;
 import java.time.LocalDateTime;
 
 public class ScheduleInterview {
-    private Candidate candidate;
-    private Recruiter recruiter;
+    private final Candidate candidate;
+    private final Recruiter recruiter;
     private Interview interview;
 
     public ScheduleInterview(Candidate candidate, Recruiter recruiter) {
@@ -23,7 +23,7 @@ public class ScheduleInterview {
 
     public void planInterview() {
         LocalDateTime interviewDate = candidate.getAvailability();
-        if(!recruiter.canTest(candidate)) {
+        if (!recruiter.canTest(candidate)) {
             throw new AnyRecruiterCanTestTheCandidateException();
         }
         if (recruiter.isAvailable(interviewDate)) {

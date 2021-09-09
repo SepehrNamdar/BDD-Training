@@ -3,10 +3,12 @@ package model;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+import static java.util.Objects.hash;
+
 public class Interview {
-    private LocalDateTime interviewDate;
-    private String candidateName;
-    private String recruiterName;
+    private final LocalDateTime interviewDate;
+    private final String candidateName;
+    private final String recruiterName;
 
     public Interview(LocalDateTime interviewDate, String candidateName, String recruiterName) {
         this.interviewDate = interviewDate;
@@ -26,6 +28,6 @@ public class Interview {
 
     @Override
     public int hashCode() {
-        return Objects.hash(interviewDate, candidateName, recruiterName);
+        return hash(interviewDate, candidateName, recruiterName);
     }
 }
